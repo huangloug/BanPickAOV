@@ -4,6 +4,13 @@ const heroStateA = {};
 const heroStateB = {};
 const pickedHistoryA = new Set();
 const pickedHistoryB = new Set();
+const laneIcons = {
+ "Trợ thủ": "💖",
+ "Rồng": "🐉",
+ "Tà thần Caesar": "👹",
+ "Mid": "🔥",
+ "Đi rừng": "🌲"
+};
 
 function createHeroElement(name, team) {
   const hero = document.createElement("div");
@@ -66,7 +73,6 @@ function showActionPopup(hero, clickEvent) {
  };
  menu.querySelector(".cancel-btn").onclick = removeMenu;
 
- // 👇 Đây là phần quan trọng: click ngoài menu → đóng
  function outsideClickListener(event) {
    if (!menu.contains(event.target)) {
      removeMenu();
@@ -75,7 +81,7 @@ function showActionPopup(hero, clickEvent) {
 
  setTimeout(() => {
    document.addEventListener("click", outsideClickListener);
- }, 0); // tránh bắt chính click hiện tại
+ }, 0);
 }
 
 
@@ -138,9 +144,11 @@ function renderTeam(containerId, teamLabel) {
    const laneSection = document.createElement("div");
    laneSection.className = "lane-section";
 
+  
    const title = document.createElement("div");
    title.className = "lane-title";
-   title.textContent = `💠 ${laneName}`;
+   console.log(laneName, laneIcons[laneName]); // debug
+   title.textContent = `${laneIcons[laneName] || "💠"} ${laneName}`;
    laneSection.appendChild(title);
 
    const heroRow = document.createElement("div");
