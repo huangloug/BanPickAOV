@@ -1,6 +1,6 @@
 const heroes = [
-  "airi",
   "aleister",
+  "airi",
   "alice",
   "allain",
   "amily",
