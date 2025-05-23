@@ -5,11 +5,11 @@ const heroStateB = {};
 const pickedHistoryA = new Set();
 const pickedHistoryB = new Set();
 const laneIcons = {
- "Trợ thủ": "💖",
+ "Sp": "💖",
  "Rồng": "🐉",
- "Tà thần Caesar": "👹",
+ "Tà": "👹",
  "Mid": "🔥",
- "Đi rừng": "🌲"
+ "Rừng": "🌲"
 };
 
 function createHeroElement(name, team) {
@@ -137,37 +137,83 @@ function renderStates() {
 }
 
 function renderTeam(containerId, teamLabel) {
- const container = document.getElementById(containerId);
- container.innerHTML = "";
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
 
- Object.entries(lanes).forEach(([laneName, heroList]) => {
-   const laneSection = document.createElement("div");
-   laneSection.className = "lane-section";
+  const layout = {
+    "Rồng": 9,
+    "Sp": 9,
+    "Mid": 10,
+    "Rừng": 10,
+    "Tà": 9
+  };
 
-  
-   const title = document.createElement("div");
-   title.className = "lane-title";
-   console.log(laneName, laneIcons[laneName]); // debug
-   title.textContent = `${laneIcons[laneName] || "💠"} ${laneName}`;
-   laneSection.appendChild(title);
+  Object.entries(lanes).forEach(([laneName, heroList]) => {
+    const laneSection = document.createElement("div");
+    laneSection.className = "lane-section";
 
-   const heroRow = document.createElement("div");
-   heroRow.className = "hero-list";
+    const title = document.createElement("div");
+    title.className = "lane-title";
+    title.textContent = `${laneIcons[laneName] || "💠"} ${laneName}`;
+    laneSection.appendChild(title);
 
-   heroList.forEach(name => {
-     const el = createHeroElement(name, teamLabel);
-     heroRow.appendChild(el);
-   });
+    const cols = layout[laneName] || 6; // fallback nếu thiếu layout
+    const rows = Math.ceil(heroList.length / cols);
 
-   laneSection.appendChild(heroRow);
-   container.appendChild(laneSection);
- });
+    for (let r = 0; r < rows; r++) {
+      const rowHeroes = heroList.slice(r * cols, (r + 1) * cols);
+      const row = document.createElement("div");
+      row.className = "hero-list";
+
+      const list = teamLabel === "b" ? [...rowHeroes].reverse() : rowHeroes;
+      list.forEach(name => {
+        const el = createHeroElement(name, teamLabel);
+        row.appendChild(el);
+      });
+
+      laneSection.appendChild(row);
+    }
+
+    container.appendChild(laneSection);
+  });
+}
+
+function renderLaneSymmetric(containerId, teamLabel, reverse = false) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  Object.entries(lanes).forEach(([laneName, heroList]) => {
+    const section = document.createElement("div");
+    section.className = "lane-section";
+
+    const title = document.createElement("div");
+    title.className = "lane-title";
+    title.textContent = `${laneName}`;
+    section.appendChild(title);
+
+    const row = document.createElement("div");
+    row.className = "hero-list";
+
+    const list = reverse ? [...heroList].reverse() : heroList;
+
+    list.forEach(name => {
+      const el = createHeroElement(name, teamLabel);
+      row.appendChild(el);
+    });
+
+    section.appendChild(row);
+    container.appendChild(section);
+  });
 }
 
 function renderHeroes() {
  renderTeam("team-a", "a");
  renderTeam("team-b", "b");
  renderStates();
+ const section = document.createElement("div");
+  section.className = "lane-section";
+  section.dataset.lane = laneName; 
+
 }
 
 

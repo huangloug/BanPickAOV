@@ -1,7 +1,7 @@
 body {
- font-family: Arial;
- background: #111;
- color: white;
+ font-family: 'Times New Roman', Times, serif;
+ background: #201b1b;
+ color: rgb(253, 253, 253);
  text-align: center;
  margin: 0;
 }
@@ -13,11 +13,11 @@ h1 {
 .team-container {
  display: flex;
  justify-content: space-around;
- padding: 20px;
+ padding: 10px;
 }
 
 .team {
- width: 45%;
+ width: 49.5%;
 }
 
 .team h2 {
@@ -30,19 +30,29 @@ h1 {
  gap: 10px;
  justify-content: center;
 }
-
 .hero {
- border: 2px solid transparent;
- transition: 0.3s;
+ position: relative;
+ width: 80px;
+ height: 80px;
 }
-
 .hero img {
  width: 80px;
  height: 80px;
  object-fit: cover;
+ filter: brightness(0.95);
  border-radius: 8px;
 }
+.hero:hover img {
+ filter: brightness(1.2); 
+}
+.hero:hover {
+ transform: scale(1.75);
+ z-index: 10;
+}
 
+.hero {
+ transition: transform 0.2s ease;
+}
 .picked {
  border-color: green;
 }
@@ -90,11 +100,7 @@ h1 {
 .hero {
  position: relative;
 }
-.hero {
- position: relative;
- width: 80px;
- height: 80px;
-}
+
 
 .hero::after {
  content: "";
@@ -159,13 +165,66 @@ h1 {
 }
 
 .lane-section {
- margin-bottom: 20px;
+ width: 99.5%;
+ background: #403737;
+ padding: 16px;
+ border-radius: 12px;
+ margin-bottom: 10px;
+ box-shadow: 0 0 12px rgba(21, 185, 185, 0.1);
 }
+.lane-section[data-lane="Rồng"] {
+ background: rgba(216, 10, 10, 0.1);
+}
+
+.lane-section[data-lane="Mid"] {
+ background: rgba(4, 237, 50, 0.815);
+}
+
+.lane-section[data-lane="Rừng"] {
+ background: rgba(120, 255, 120, 0.1);
+}
+
+.lane-section[data-lane="Sp"] {
+ background: rgba(120, 200, 255, 0.1);
+}
+
+.lane-section[data-lane="Tà"] {
+ background: rgba(200, 120, 255, 0.1);
+}
+
 
 .lane-title {
  font-weight: bold;
- font-size: 24px;
+ font-size: 16px;
  color: #ccc;
  margin-bottom: 5px;
 }
+
+#match-label {
+ font-size: 20px;
+ font-weight: bold;
+ font-family: 'Times New Roman', Times, serif;
+ padding: 8px 12px;
+ display: inline-block;
+ color: #effefe;
+}
+
+#next-match, #reset-all {
+ font-size: 20px;
+ font-family: 'Times New Roman', Times, serif;
+ padding: 10px 16px;
+ margin: 4px;
+ background-color: #333;
+ color: white;
+ border: none;
+ border-radius: 6px;
+ cursor: pointer;
+ transition: background 0.2s ease;
+}
+
+#next-match:hover, #reset-all:hover {
+ transform: scale(1.2);
+ background-color: #555;
+}
+
 
