@@ -34,12 +34,13 @@ h1 {
  position: relative;
  width: 80px;
  height: 80px;
+ margin-bottom: 5px;
 }
 .hero img {
  width: 80px;
  height: 80px;
  object-fit: cover;
- filter: brightness(0.95);
+ filter: brightness(0.9.5);
  border-radius: 8px;
 }
 .hero:hover img {
@@ -67,7 +68,7 @@ h1 {
  border: 2px dashed gray;
 }
 .picking {
- border: 5px solid #00ff00;
+ border: 7px solid #00ff00;
 }
 
 .picked-by-self::after {
