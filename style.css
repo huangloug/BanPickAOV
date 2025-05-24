@@ -67,7 +67,7 @@ h1 {
  border: 2px dashed gray;
 }
 .picking {
- border: 2px solid #00ff00;
+ border: 5px solid #00ff00;
 }
 
 .picked-by-self::after {
