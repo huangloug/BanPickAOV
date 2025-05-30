@@ -25,11 +25,6 @@ function createHeroElement(name, team) {
   hero.appendChild(img);
 
   hero.onclick = (e) => {
-    if (hero.classList.contains("picking") ||
-        hero.classList.contains("picked-by-enemy") ||
-        hero.classList.contains("picked-by-self") ||
-        hero.classList.contains("banning")) return;
-
     showActionPopup(hero, e);
   };
 
@@ -48,6 +43,7 @@ function showActionPopup(hero, clickEvent) {
    <button class="pick-btn">Pick</button>
    <button class="ban-btn">Ban</button>
    <button class="cancel-btn">Huỷ</button>
+   <button class="remove-btn">Gỡ trạng thái</button>
  `;
 
  document.body.appendChild(menu);
@@ -71,6 +67,14 @@ function showActionPopup(hero, clickEvent) {
    removeMenu();
    renderStates();
  };
+  menu.querySelector(".remove-btn").onclick = () => {
+    delete heroStateA[name];
+    delete heroStateB[name];
+    pickedHistoryA.delete(name);
+    pickedHistoryB.delete(name);
+    removeMenu();
+    renderStates();
+  };
  menu.querySelector(".cancel-btn").onclick = removeMenu;
 
  function outsideClickListener(event) {
@@ -117,21 +121,16 @@ function renderStates() {
 
     if (pickedHistoryA.has(name) && team === "a") {
       el.classList.add("picked-by-self");
-      el.style.pointerEvents = "none";
     } else if (pickedHistoryB.has(name) && team === "b") {
       el.classList.add("picked-by-self");
-      el.style.pointerEvents = "none";
     }
 
     if (state === "Picking") {
       el.classList.add("picking");
-      el.style.pointerEvents = "none";
     } else if (state === "PickedByEnemy") {
       el.classList.add("picked-by-enemy");
-      el.style.pointerEvents = "none";
     } else if (state === "Banning") {
       el.classList.add("banning");
-      el.style.pointerEvents = "none";
     }
   });
 }
@@ -210,10 +209,6 @@ function renderHeroes() {
  renderTeam("team-a", "a");
  renderTeam("team-b", "b");
  renderStates();
- const section = document.createElement("div");
-  section.className = "lane-section";
-  section.dataset.lane = laneName; 
-
 }
 
 
