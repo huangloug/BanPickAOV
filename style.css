@@ -47,7 +47,7 @@ h1 {
  filter: brightness(1.2); 
 }
 .hero:hover {
- transform: scale(1.75);
+ transform: scale(1.5);
  z-index: 10;
 }
 
@@ -228,4 +228,11 @@ h1 {
  background-color: #555;
 }
 
+.hero.picking:hover,
+.hero.picked-by-self:hover,
+.hero.picked-by-enemy:hover,
+.hero.banning:hover {
+  transform: none !important;
+  z-index: auto !important;
+}
 
